@@ -1,56 +1,74 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-/**
- * Class comments for documentation go here. See the C# documentation for
- * formatting tips.
- */
 public class Player : MonoBehaviour
 {
-    public float horizontalScale = 1f;
-    public float jumpStrength = 5;
-    private Rigidbody2D rigid2D; //Rigidbody2D of player object
-    private bool jumping = false;
+
+    public int maxHealth = 3;
+    public int currentHealth;
+
+    public HealthBar healthBar;
+
+    Material originalMaterial;
+    bool flashing;
+    public Material flashMaterial;
 
     // Start is called before the first frame update
     void Start()
     {
-        rigid2D = gameObject.GetComponent<Rigidbody2D>();
-        // TODO: what if there isn't one?
+        if (GetComponent<SpriteRenderer>().material != null)
+            originalMaterial = GetComponent<SpriteRenderer>().material;
+
+        currentHealth = maxHealth;
+        healthBar.SetMaxHealth(maxHealth);
+
+    }
+
+    public void FlashWrapper()
+    {
+        if (!flashing)
+            StartCoroutine("Flash");
+    }
+
+    IEnumerator Flash()
+    {
+        flashing = true;
+        for (int i = 1; i < 5; i++)
+        {
+            GetComponent<SpriteRenderer>().material = flashMaterial;
+            yield
+            return new WaitForSeconds(.2f);
+            GetComponent<SpriteRenderer>().material = originalMaterial;
+            yield
+            return new WaitForSeconds(.2f);
+        }
+        flashing = false;
     }
 
     // Update is called once per frame
-    /// <summary>
-    ///  Uses a simple (and not very good) way to detect if player is jumping
-    /// </summary>
-    private void Update()
+    void Update()
     {
-        if (rigid2D.velocity.y > 0)
+        if (Input.GetKeyDown(KeyCode.Space))
         {
-            jumping = true;
-        }
-        else
-        {
-            jumping = false;
+            TakeDamage(1);
         }
     }
 
-    /// <summary>
-    /// FixedUpdate is recommended for physics operations requiring small variations
-    /// in time between calls.
-    /// </summary>
-    void FixedUpdate()
+    void TakeDamage(int damage)
     {
-        float horizontalInput = Input.GetAxis("Horizontal") * horizontalScale;
-        float jumpInput = 0f;
-        if (!jumping)
+        currentHealth -= damage;
+
+        healthBar.SetHealth(currentHealth);
+    }
+
+    void OnCollisionEnter2D(Collision2D col)
+    {
+        if (col.gameObject.CompareTag("Enemy"))
         {
-            jumpInput = Input.GetAxis("Jump") * jumpStrength;
+            TakeDamage(1);
+            FlashWrapper();
         }
-        rigid2D.AddForce(new Vector2(horizontalInput, 0));
-        // TODO: what if we use ForceMode2D.Impulse?
-        rigid2D.AddForce(new Vector2(0, jumpInput), ForceMode2D.Impulse);
-        jumping = true;
     }
 }
