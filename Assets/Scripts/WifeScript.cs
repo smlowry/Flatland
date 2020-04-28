@@ -1,28 +1,25 @@
-﻿using System;
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
-using System.Collections.Specialized;
-using System.Security.Cryptography;
 using UnityEngine;
 
-public class Enemy : MonoBehaviour
+public class WifeScript : MonoBehaviour
 {
     public float speed = 1f;
     public Transform target;
 
-        void Start()
-        {
-            target = GameObject.FindGameObjectWithTag("Player").GetComponent<Transform>();
-        }
+    void Start()
+    {
+        target = GameObject.FindGameObjectWithTag("Player").GetComponent<Transform>();
+    }
 
-        void Update()
-        {
+    void Update()
+    {
 
         var dist = Vector3.Distance(target.position, transform.position);
 
-        if (dist < 7)
+        if (dist < 3)
         {
-            transform.position = Vector2.MoveTowards(transform.position, target.position, speed * Time.deltaTime);
+            //transform.position = Vector2.MoveTowards(transform.position, target.position, speed * Time.deltaTime);
 
             Vector2 direction = target.position - transform.position;
 
