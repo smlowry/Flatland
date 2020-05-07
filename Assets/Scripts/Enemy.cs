@@ -22,6 +22,7 @@ public class Enemy : MonoBehaviour
 
         if (dist < 7)
         {
+
             transform.position = Vector2.MoveTowards(transform.position, target.position, speed * Time.deltaTime);
 
             Vector2 direction = target.position - transform.position;
