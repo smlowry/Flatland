@@ -2474,8 +2474,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ba46d366333e83b4daa1aea8e3142442, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHealth: 10
-  currentHealth: 10
+  maxHealth: 5
+  currentHealth: 5
   healthBar: {fileID: 840672609}
   flashMaterial: {fileID: 0}
 --- !u!61 &579495164
@@ -2517,7 +2517,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   win: 0
-  lose: 0
   target: {fileID: 579495160}
   currentHealth: 10
   healthBar: {fileID: 840672609}
@@ -5505,7 +5504,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 52
+  m_SortingOrder: 100
   m_Sprite: {fileID: 21300000, guid: bb9b02a2f84907e418c2d44a9275520b, type: 3}
   m_Color: {r: 0, g: 0, b: 0, a: 1}
   m_FlipX: 0
