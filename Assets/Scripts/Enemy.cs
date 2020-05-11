@@ -7,8 +7,8 @@ using UnityEngine;
 
 public class Enemy : MonoBehaviour
 {
-    public float speed = 1f;
-    public Transform target;
+        public float speed = 1f;
+        public Transform target;
 
         void Start()
         {
@@ -18,20 +18,21 @@ public class Enemy : MonoBehaviour
         void Update()
         {
 
-        var dist = Vector3.Distance(target.position, transform.position);
+            var dist = Vector3.Distance(target.position, transform.position);
 
-        if (dist < 7)
-        {
+            if (dist < 7)
+            {
 
-            transform.position = Vector2.MoveTowards(transform.position, target.position, speed * Time.deltaTime);
+                transform.position = Vector2.MoveTowards(transform.position, target.position, speed * Time.deltaTime);
 
-            Vector2 direction = target.position - transform.position;
+                Vector2 direction = target.position - transform.position;
 
-            float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
+                float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
 
-            Quaternion rotation = Quaternion.AngleAxis(angle, Vector3.forward);
+                Quaternion rotation = Quaternion.AngleAxis(angle, Vector3.forward);
 
-            transform.rotation = Quaternion.Slerp(transform.rotation, rotation, speed * Time.deltaTime);
+                transform.rotation = Quaternion.Slerp(transform.rotation, rotation, speed * Time.deltaTime);
+            }
         }
-    }
+
 }

@@ -9,21 +9,32 @@ using UnityEngine.SceneManagement;
 public class GameOver : MonoBehaviour
 {
     // "readonly" prevents a variable from being changed at runtime.
-    public readonly int deathElevation = -150   ;
-    public bool gameOver = false;
-    public Transform playerTransform;
+    public readonly int winArea = -101   ;
+    public bool win = false;
+    public Transform target;
+    public int currentHealth;
+
+    public HealthBar healthBar;
 
     // Update is called once per frame
+
+    void Start()
+    {
+        target = GameObject.FindGameObjectWithTag("Player").GetComponent<Transform>();
+    }
+
     void Update()
     {
-        if (playerTransform.position.y < deathElevation)
+        if (target.position.x < winArea)
         {
-            gameOver = true;
+            win = true;
         }
 
-        if (gameOver)
+        if (win)
         {
-            SceneManager.LoadScene("Credits");
+            SceneManager.LoadScene("WinScene");
         }
     }
 }
+
+

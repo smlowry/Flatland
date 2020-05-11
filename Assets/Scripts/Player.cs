@@ -1,12 +1,14 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Net.Security;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class Player : MonoBehaviour
 {
-
-    public int maxHealth = 3;
+    private bool lose = false;
+    public int maxHealth;
     public int currentHealth;
 
     public HealthBar healthBar;
@@ -50,9 +52,15 @@ public class Player : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Space))
+
+        if (currentHealth <= 0)
         {
-            TakeDamage(1);
+            lose = true;
+        }
+
+        if (lose)
+        {
+            SceneManager.LoadScene("LoseScene");
         }
     }
 
